@@ -20,3 +20,19 @@ Route::get('/ticket/{slug?}', 'TicketsController@show');
 Route::get('/ticket/{slug?}/edit', 'TicketsController@edit');
 Route::post('/ticket/{slug?}/edit', 'TicketsController@update');
 Route::post('/ticket/{slug?}/delete', 'TicketsController@destroy');
+Route::get('sendemail', function () {
+	$data = array(
+		'name' => "LinuxInstall.xyz",
+	);
+
+	Mail::send('emails.welcome', $data, function ($message) {
+
+		$message->from('yotkjef@gmail.com', 'LinuxInstall.xyz');
+
+		$message->to('yo@tkjef.com')->subject('LinuxInstall.xyz Ticket Submission');
+
+	});
+
+	return "Your ticket has been submitted successfully.";
+
+});

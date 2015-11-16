@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TicketFormRequest;
 use App\Ticket;
+use Illuminate\Support\Facades\Mail;
 
 class TicketsController extends Controller
 {
@@ -48,6 +49,15 @@ class TicketsController extends Controller
 	));
 
 	$ticket->save();
+
+	$data = array(
+		'ticket' => $slug,
+	);
+
+	Mail::send('emails.ticket', $data, function ($message) {
+		$message->from('yotkjef@gmail.com', 'LinuxInstall.xyz');
+		$message->to('yo@tkjef.com')->subject('There is a new ticket!');
+	});
 
 	return redirect('/submit-ticket')->with('status', 'Your ticket has been created! ID is: '.$slug);
     }

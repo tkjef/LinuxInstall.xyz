@@ -36,3 +36,4 @@ Route::get('sendemail', function () {
 	return "Your ticket has been submitted successfully.";
 
 });
+Route::post('/comment', 'CommentsController@newComment');
